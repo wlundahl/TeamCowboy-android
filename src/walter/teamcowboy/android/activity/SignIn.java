@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ public class SignIn extends Activity {
     private static final String CREATE_ACCOUNT_URL = "https://www.teamcowboy.com/register";
     private static final String FORGOT_PASSWORD_URL = "https://www.teamcowboy.com/resetPassword";
     private static final int LOG_IN_REQUEST_CODE = 19;
+    static final String STAY_SIGNED_IN = "walter.teamcowboy.StaySignedIn";
 
     /**
      * Called when the activity is first created.
@@ -58,6 +60,9 @@ public class SignIn extends Activity {
         EditText usernameView = (EditText) findViewById(R.id.username);
         EditText passwordView = getPasswordEditor();
 
+        CheckBox staySignedInCheckBox = (CheckBox) findViewById(R.id.stay_signed_in_checkbox);
+        boolean shouldStaySignedIn = staySignedInCheckBox.isChecked();
+
         String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
 
@@ -72,6 +77,7 @@ public class SignIn extends Activity {
         Intent loginIntent = new Intent(this, LoggedIn.class);
         loginIntent.putExtra(USERNAME, username);
         loginIntent.putExtra(PASSWORD, password);
+        loginIntent.putExtra(STAY_SIGNED_IN, shouldStaySignedIn);
         startActivityForResult(loginIntent, LOG_IN_REQUEST_CODE);
     }
 

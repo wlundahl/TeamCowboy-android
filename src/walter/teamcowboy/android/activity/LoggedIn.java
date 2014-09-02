@@ -18,6 +18,7 @@ public class LoggedIn extends Activity {
     static final String AUTH_USER = "walter.teamcowboy.AUTH_USER";
     private static final String TAG = LoggedIn.class.getName();
     private String username;
+    private boolean shouldStaySignedIn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class LoggedIn extends Activity {
         Intent intent = getIntent();
         username = intent.getStringExtra(SignIn.USERNAME);
         String password = intent.getStringExtra(SignIn.PASSWORD);
+        shouldStaySignedIn = intent.getBooleanExtra(SignIn.STAY_SIGNED_IN, true);
 
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             Log.w(TAG, "Received an invalid username[" + username + "] or password [" + password + "]");
@@ -44,11 +46,13 @@ public class LoggedIn extends Activity {
             resultCode = Activity.RESULT_CANCELED;
         } else {
             resultCode = Activity.RESULT_OK;
-            // TODO: check user prefs
-            SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-            SharedPreferences.Editor prefEditor = prefs.edit();
-            prefEditor.putString(AUTH_USER, new Gson().toJson(user));
-            prefEditor.commit();
+            if (shouldStaySignedIn) {
+                SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context
+                        .MODE_PRIVATE);
+                SharedPreferences.Editor prefEditor = prefs.edit();
+                prefEditor.putString(AUTH_USER, new Gson().toJson(user));
+                prefEditor.commit();
+            }
 
             result.putExtra(AUTH_USER, user);
         }
