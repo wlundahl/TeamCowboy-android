@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
@@ -23,12 +25,23 @@ public class SignIn extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+
+        final EditText passwordView = getPasswordEditor();
+        passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    attemptLogin(passwordView.getRootView());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void attemptLogin(View view) {
 
         EditText usernameView = (EditText) findViewById(R.id.username);
-        EditText passwordView = (EditText) findViewById(R.id.password);
+        EditText passwordView = getPasswordEditor();
 
         String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
@@ -53,6 +66,10 @@ public class SignIn extends Activity {
 
     public void forgotPassword(View view) {
         openURL(FORGOT_PASSWORD_URL);
+    }
+
+    private EditText getPasswordEditor() {
+        return (EditText) findViewById(R.id.password);
     }
 
     /**
