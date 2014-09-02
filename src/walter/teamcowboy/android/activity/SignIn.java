@@ -2,6 +2,7 @@ package walter.teamcowboy.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import walter.TeamCowboy.R;
 public class SignIn extends Activity {
     static final String USERNAME = "walter.teamcowboy.UserName";
     static final String PASSWORD = "walter.teamcowboy.Password";
+    private static final String CREATE_ACCOUNT_URL = "https://www.teamcowboy.com/register";
+    private static final String FORGOT_PASSWORD_URL = "https://www.teamcowboy.com/resetPassword";
 
     /**
      * Called when the activity is first created.
@@ -19,7 +22,7 @@ public class SignIn extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.sign_in);
     }
 
     public void attemptLogin(View view) {
@@ -42,5 +45,21 @@ public class SignIn extends Activity {
         loginIntent.putExtra(USERNAME, username);
         loginIntent.putExtra(PASSWORD, password);
         startActivity(loginIntent);
+    }
+
+    public void createAccount(View view) {
+        openURL(CREATE_ACCOUNT_URL);
+    }
+
+    public void forgotPassword(View view) {
+        openURL(FORGOT_PASSWORD_URL);
+    }
+
+    /**
+     * Helper method that starts an activity to open the given url.
+     */
+    private void openURL(String url) {
+        Intent createAccount = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(createAccount);
     }
 }
