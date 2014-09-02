@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,28 +38,22 @@ public class LoggedIn extends Activity {
     }
 
     private void setLoginStatus(AuthUser user) {
-        // hide loading
-        findViewById(R.id.login_loading_view).setVisibility(View.GONE);
-        // show message
-        findViewById(R.id.login_success_view).setVisibility(View.VISIBLE);
-
-        TextView loginMessageView = (TextView) findViewById(R.id.login_success_text);
+        Intent result = new Intent();
+        int resultCode;
         if (user == null) {
-            loginMessageView.setTextColor(getResources().getColor(R.color.error_message));
-            loginMessageView.setText(getString(R.string.login_error));
-            return;
+            resultCode = Activity.RESULT_CANCELED;
+        } else {
+            resultCode = Activity.RESULT_OK;
+            // TODO: check user prefs
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefEditor = prefs.edit();
+            prefEditor.putString(AUTH_USER, new Gson().toJson(user));
+            prefEditor.commit();
+
+            result.putExtra(AUTH_USER, user);
         }
-        // TODO: Make this a string resource
-        loginMessageView.setText("Congrats " + username + " you have signed in with userId " + user.getUserId());
-
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = prefs.edit();
-        prefEditor.putString(AUTH_USER, new Gson().toJson(user));
-        prefEditor.commit();
-
-        Intent teamList = new Intent(this, TeamsListActivity.class);
-        teamList.putExtra(AUTH_USER, user);
-        startActivity(teamList);
+        setResult(resultCode, result);
+        finish();
     }
 
     private class LoginTask extends AsyncTask<Pair<String, String>, Integer, AuthUser> {

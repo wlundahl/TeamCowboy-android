@@ -62,8 +62,8 @@ public class TeamsListActivity extends Activity {
         SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
         prefs.edit().remove(LoggedIn.AUTH_USER).commit();
 
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     private void setTeamList(List<Team> teams) {

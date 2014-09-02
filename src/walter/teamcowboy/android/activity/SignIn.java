@@ -17,6 +17,7 @@ public class SignIn extends Activity {
     static final String PASSWORD = "walter.teamcowboy.Password";
     private static final String CREATE_ACCOUNT_URL = "https://www.teamcowboy.com/register";
     private static final String FORGOT_PASSWORD_URL = "https://www.teamcowboy.com/resetPassword";
+    private static final int LOG_IN_REQUEST_CODE = 19;
 
     /**
      * Called when the activity is first created.
@@ -38,6 +39,20 @@ public class SignIn extends Activity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+        if (requestCode == LOG_IN_REQUEST_CODE) {
+            if (responseCode == Activity.RESULT_OK) {
+                // Forward the data back to the Main activity.
+                setResult(Activity.RESULT_OK, data);
+                finish();
+            } else {
+                // TODO: get string and error message from intent?
+                getErrorMessageView().setText(getString(R.string.login_error));
+            }
+        }
+    }
+
     public void attemptLogin(View view) {
 
         EditText usernameView = (EditText) findViewById(R.id.username);
@@ -46,7 +61,7 @@ public class SignIn extends Activity {
         String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
 
-        TextView messageView = (TextView) findViewById(R.id.login_error_message);
+        TextView messageView = getErrorMessageView();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             messageView.setText(getString(R.string.invalid_login_input));
             return;
@@ -57,7 +72,7 @@ public class SignIn extends Activity {
         Intent loginIntent = new Intent(this, LoggedIn.class);
         loginIntent.putExtra(USERNAME, username);
         loginIntent.putExtra(PASSWORD, password);
-        startActivity(loginIntent);
+        startActivityForResult(loginIntent, LOG_IN_REQUEST_CODE);
     }
 
     public void createAccount(View view) {
@@ -66,6 +81,10 @@ public class SignIn extends Activity {
 
     public void forgotPassword(View view) {
         openURL(FORGOT_PASSWORD_URL);
+    }
+
+    private TextView getErrorMessageView() {
+        return (TextView) findViewById(R.id.login_error_message);
     }
 
     private EditText getPasswordEditor() {
