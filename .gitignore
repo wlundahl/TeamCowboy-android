@@ -1,0 +1,20 @@
+# Intellij files
+.idea
+*.iml
+
+# Auto-generated
+out/
+target/
+local.properties
+*gen/
+build.xml
+
+# Contains the API keys used in TeamCowboyClient
+TeamCowboyClientConfig.java
+private/
+account
+
+# UT that contains some test data with the API key.
+# TODO: refactor this to contain useful UTs
+TeamCowboyClientTest.java
+IntegTestData.java

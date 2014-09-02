@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Team Cowboy</string>
+    <string name="pref_file_name">.teamCowboyPrefs</string>
+    <string name="username_message">Username</string>
+    <string name="password_message">Password</string>
+    <string name="button_login">Login</string>
+    <string name="welcome_message">Team Cowboy</string>
+    <string name="create_account">Create Account</string>
+    <string name="forgot_password">Reset Password</string>
+    <string name="invalid_login_input">Please enter a non-empty Username/Password</string>
+    <string name="signing_in">Signing in...</string>
+    <string name="login_error">Invalid username/password combination!</string>
+    <string name="loading_teams">Fetching teams list from Team Cowboy</string>
+    <string name="teams_list_error">Error loading teams list</string>
+</resources>
