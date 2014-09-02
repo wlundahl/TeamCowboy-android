@@ -17,17 +17,20 @@ public class MainActivity extends Activity {
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
         String userJSON = prefs.getString(LoggedIn.AUTH_USER, "");
+        boolean requiresSignIn = true;
         if (StringUtils.isNotBlank(userJSON)) {
             AuthUser user = new Gson().fromJson(userJSON, AuthUser.class);
             if (user.isValid()) {
                 Intent teamsList = new Intent(this, TeamList.class);
                 teamsList.putExtra(LoggedIn.AUTH_USER, user);
+                requiresSignIn = false;
                 startActivity(teamsList);
-                return;
             }
         }
 
-        Intent signIn = new Intent(this, SignIn.class);
-        startActivity(signIn);
+        if (requiresSignIn) {
+            Intent signIn = new Intent(this, SignIn.class);
+            startActivity(signIn);
+        }
     }
 }
