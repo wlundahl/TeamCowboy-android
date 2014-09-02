@@ -41,7 +41,7 @@ public class TeamList extends Activity {
 
         ListView teamsList = (ListView) findViewById(R.id.teams_list);
         teamsList.setVisibility(View.VISIBLE);
-        ListAdapter teamsListAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_list_item_1, teams);
+        ListAdapter teamsListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, teams);
 
 
         teamsList.setAdapter(teamsListAdapter);

@@ -1,17 +1,13 @@
 package walter.teamcowboy.android.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import walter.TeamCowboy.R;
-import walter.teamcowboy.types.AuthUser;
 
 public class SignIn extends Activity {
     static final String USERNAME = "walter.teamcowboy.UserName";
@@ -24,17 +20,6 @@ public class SignIn extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-        String userJSON = prefs.getString(LoggedIn.AUTH_USER, "");
-        if (StringUtils.isNotBlank(userJSON)) {
-            AuthUser user = new Gson().fromJson(userJSON, AuthUser.class);
-            if (user.isValid()) {
-                Intent teamsList = new Intent(this, TeamList.class);
-                teamsList.putExtra(LoggedIn.AUTH_USER, user);
-                startActivity(teamsList);
-            }
-        }
     }
 
     public void attemptLogin(View view) {
