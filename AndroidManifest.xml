@@ -20,7 +20,7 @@
         <activity
             android:name="walter.teamcowboy.android.activity.LoggedIn"
             android:parentActivityName="walter.teamcowboy.android.activity.SignIn" />
-        <activity android:name="walter.teamcowboy.android.activity.TeamList" />
+        <activity android:name="walter.teamcowboy.android.activity.TeamsListActivity" />
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

@@ -13,4 +13,6 @@
     <string name="login_error">Invalid username/password combination!</string>
     <string name="loading_teams">Fetching teams list from Team Cowboy</string>
     <string name="teams_list_error">Error loading teams list</string>
+    <string name="action_settings">Settings</string>
+    <string name="sign_out">Sign out</string>
 </resources>

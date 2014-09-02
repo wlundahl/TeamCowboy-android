@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         if (StringUtils.isNotBlank(userJSON)) {
             AuthUser user = new Gson().fromJson(userJSON, AuthUser.class);
             if (user.isValid()) {
-                Intent teamsList = new Intent(this, TeamList.class);
+                Intent teamsList = new Intent(this, TeamsListActivity.class);
                 teamsList.putExtra(LoggedIn.AUTH_USER, user);
                 requiresSignIn = false;
                 startActivity(teamsList);

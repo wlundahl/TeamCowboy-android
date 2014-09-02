@@ -59,7 +59,7 @@ public class LoggedIn extends Activity {
         prefEditor.putString(AUTH_USER, new Gson().toJson(user));
         prefEditor.commit();
 
-        Intent teamList = new Intent(this, TeamList.class);
+        Intent teamList = new Intent(this, TeamsListActivity.class);
         teamList.putExtra(AUTH_USER, user);
         startActivity(teamList);
     }
