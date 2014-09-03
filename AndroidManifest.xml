@@ -21,6 +21,7 @@
             android:name="walter.teamcowboy.android.activity.LoggedIn"
             android:parentActivityName="walter.teamcowboy.android.activity.SignIn" />
         <activity android:name="walter.teamcowboy.android.activity.TeamsListActivity" />
+        <activity android:name="walter.teamcowboy.android.activity.LoggedInActivity" />
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
