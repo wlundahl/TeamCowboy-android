@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import walter.TeamCowboy.R;
+import walter.teamcowboy.android.fragment.EventListFragment;
 import walter.teamcowboy.android.fragment.TeamsListFragment;
 import walter.teamcowboy.types.AuthUser;
 
@@ -39,10 +40,13 @@ public class LoggedInActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        ActionBar.Tab teamsList = actionBar.newTab().setText(getString(R.string.teams)).setTabListener(
+        ActionBar.Tab teamsList = actionBar.newTab().setText(getString(R.string.teams_tab_text)).setTabListener(
                 new TabListener<>(this, "teams", TeamsListFragment.class, user));
-
         actionBar.addTab(teamsList);
+
+        ActionBar.Tab eventsList = actionBar.newTab().setText(getString(R.string.events_tab_text)).setTabListener(new TabListener<>(this,
+                "events", EventListFragment.class, user));
+        actionBar.addTab(eventsList);
     }
 
     @Override

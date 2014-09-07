@@ -18,6 +18,7 @@ public enum APIMethod {
     SIGN_IN("Auth_GetUserToken", POST, HTTPS),
     USER("User_Get", GET),
     GET_TEAMS("User_GetTeams", GET),
+    TEAM_EVENTS("User_GetTeamEvents", GET),
     GET_TEAM("Team_Get", GET);
 
     private final String apiName;

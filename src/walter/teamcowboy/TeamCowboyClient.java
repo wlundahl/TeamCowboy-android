@@ -27,6 +27,7 @@ import walter.rest.client.RestRequest;
 import walter.rest.client.RestResponse;
 import walter.teamcowboy.request.APIMethod;
 import walter.teamcowboy.types.AuthUser;
+import walter.teamcowboy.types.Event;
 import walter.teamcowboy.types.ResponseError;
 import walter.teamcowboy.types.Team;
 import walter.teamcowboy.types.User;
@@ -38,17 +39,14 @@ import java.util.List;
 import java.util.Map;
 
 public class TeamCowboyClient {
+    public static final String TOKEN = "userToken";
     private static final String TAG = TeamCowboyClient.class.getName();
-
     private static final String SIGNATURE_TEMPLATE = "%s|%s|%s|%s|%s|%s";
-
     private static final String ENDPOINT = "api.teamcowboy.com";
     private static final String PATH = "/v1/";
-
     // Required params names
     private static final String TIMESTAMP = "timestamp";
     private static final String NONCE = "nonce";
-
     private final Gson gson;
 
     public TeamCowboyClient() {
@@ -72,11 +70,17 @@ public class TeamCowboyClient {
     }
 
     public User getUserDetails(AuthUser authUser) {
-        return makeRequest(APIMethod.USER, ImmutableMap.of("userToken", authUser.getToken()), User.class);
+        return makeRequest(APIMethod.USER, ImmutableMap.of(TOKEN, authUser.getToken()), User.class);
     }
 
     public List<Team> getTeams(AuthUser authUser) {
-        return makeRequestForList(APIMethod.GET_TEAMS, ImmutableMap.of("userToken", authUser.getToken()), Team.class);
+        return makeRequestForList(APIMethod.GET_TEAMS, ImmutableMap.of(TOKEN, authUser.getToken()), Team.class);
+    }
+
+    public List<Event> getEvents(AuthUser authUser) {
+        return makeRequestForList(APIMethod.TEAM_EVENTS,
+                ImmutableMap.of(TOKEN, authUser.getToken(), "dashboardTeamsOnly", Boolean.TRUE.toString()),
+                Event.class);
     }
 
     public Map<String, String> createParams(APIMethod method, Map<String, String> methodParams) {
