@@ -15,7 +15,8 @@ import walter.teamcowboy.TeamCowboyClient;
 import walter.teamcowboy.types.AuthUser;
 
 public class LoggedIn extends Activity {
-    static final String AUTH_USER = "walter.teamcowboy.AUTH_USER";
+    // TODO: move to constant file
+    public static final String AUTH_USER = "walter.teamcowboy.AUTH_USER";
     private static final String TAG = LoggedIn.class.getName();
     private String username;
     private boolean shouldStaySignedIn;
@@ -35,8 +36,7 @@ public class LoggedIn extends Activity {
             return;
         }
 
-        AsyncTask<Pair<String, String>, Integer, AuthUser> userTask = new LoginTask().execute(
-                Pair.of(username, password));
+        new LoginTask().execute(Pair.of(username, password));
     }
 
     private void setLoginStatus(AuthUser user) {
@@ -47,8 +47,8 @@ public class LoggedIn extends Activity {
         } else {
             resultCode = Activity.RESULT_OK;
             if (shouldStaySignedIn) {
-                SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), Context
-                        .MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name),
+                        Context.MODE_PRIVATE);
                 SharedPreferences.Editor prefEditor = prefs.edit();
                 prefEditor.putString(AUTH_USER, new Gson().toJson(user));
                 prefEditor.commit();

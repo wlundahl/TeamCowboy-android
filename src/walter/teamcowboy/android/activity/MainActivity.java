@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
     private boolean handleAuthUser(AuthUser user) {
         boolean isHandled = false;
         if (user.isValid()) {
-            Intent teamsList = new Intent(this, TeamsListActivity.class);
+            Intent teamsList = new Intent(this, LoggedInActivity.class);
             teamsList.putExtra(LoggedIn.AUTH_USER, user);
             isHandled = true;
             startActivityForResult(teamsList, SIGNED_IN_REQUEST_CODE);
