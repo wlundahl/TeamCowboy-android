@@ -2,6 +2,7 @@ package walter.teamcowboy.android.fragment;
 
 import android.util.Log;
 import walter.TeamCowboy.R;
+import walter.teamcowboy.android.tasks.TCListAsyncTaskBase;
 import walter.teamcowboy.types.AuthUser;
 import walter.teamcowboy.types.Event;
 
@@ -22,7 +23,7 @@ public class EventListFragment extends TCListFragmentBase<Event> {
         eventListAsyncTask.execute(user);
     }
 
-    private class EventListAsyncTask extends TCAsyncTask<Event> {
+    private class EventListAsyncTask extends TCListAsyncTaskBase<Event> {
         @Override
         protected List<Event> retrieveData(AuthUser user) {
             return client.getEvents(user);

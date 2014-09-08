@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ListView;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import walter.TeamCowboy.R;
+import walter.teamcowboy.android.tasks.TCListAsyncTaskBase;
 import walter.teamcowboy.types.AuthUser;
 import walter.teamcowboy.types.Team;
 
@@ -32,7 +33,7 @@ public class TeamsListFragment extends TCListFragmentBase<Team> {
         teamListAsyncTask.execute(user);
     }
 
-    private class TeamListAsyncTask extends TCAsyncTask<Team> {
+    private class TeamListAsyncTask extends TCListAsyncTaskBase<Team> {
 
         @Override
         protected List<Team> retrieveData(AuthUser user) {
